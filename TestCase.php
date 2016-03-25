@@ -4,13 +4,10 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Artisan;
 use Illuminate\Foundation\Testing\WithoutMiddleware;
-use Illuminate\Foundation\Testing\DatabaseMigrations;
-use Illuminate\Foundation\Testing\DatabaseTransactions;
 
 class TestCase extends Illuminate\Foundation\Testing\TestCase {
 
     use WithoutMiddleware;
-    //use DatabaseMigrations;
 
     /**
      * @var \Illuminate\Session\SessionManager
@@ -34,7 +31,7 @@ class TestCase extends Illuminate\Foundation\Testing\TestCase {
         $app = require __DIR__.'/../bootstrap/app.php';
 
         $app->make(Illuminate\Contracts\Console\Kernel::class)->bootstrap();
-
+        /**
         $app['config']->set('session', [
             'driver'          => 'array',
             'lifetime'        => 120,
@@ -49,7 +46,7 @@ class TestCase extends Illuminate\Foundation\Testing\TestCase {
             'domain'          => 'medlib-v2.lan',
             'secure'          => false,
         ]);
-
+        */
         return $app;
     }
 

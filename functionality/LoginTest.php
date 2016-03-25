@@ -2,12 +2,13 @@
 
 use Medlib\Models\User;
 use Laracasts\TestDummy\Factory;
-use Illuminate\Support\Facades\Route;
-use Illuminate\Support\Facades\Artisan;
 
 class LoginTest extends TestCase {
 
-
+    /**
+     * @test if the input email is empty
+     * @return void
+     */
     public function testEmptyEmailShowsErrorOnSubmit() {
 
         $this->visit('/')
@@ -15,6 +16,10 @@ class LoginTest extends TestCase {
             ->assertSessionHasErrors(['email']);
     }
 
+    /**
+     * @test if your email address is not valid
+     * @return void
+     */
     public function testInvalidEmailShowsErrorOnSubmit() {
 
         $this->visit('/')
@@ -22,6 +27,10 @@ class LoginTest extends TestCase {
             ->assertSessionHasErrors(['email']);
     }
 
+    /**
+     * @test if the input password is empty
+     * @return void
+     */
     public function testEmptyPasswordShowsErrorOnSubmit() {
 
         $this->visit('/')
@@ -29,21 +38,25 @@ class LoginTest extends TestCase {
             ->assertSessionHasErrors(['password']);
     }
 
-    public function testLoginWithWrongCedentialsShowsError() {
+    /**
+     * @test if your credentials return an error
+     * @return void
+     */
+    public function testLoginWithWrongCredentialsShowsError() {
 
         $currentUser = Factory::create(User::class);
 
         $this->visit('/')
             ->submitForm('Connexion', ['email' => $currentUser->getEmail(), 'password' => 'heheheh'])
-            ->assertSessionHas('error', 'Nous avons été incapables de vous connecter. Merci vérifier vos informations d\'identification et réessayez à nouveau.');
+            ->see("Nous avons été incapables de vous connecter. Merci vérifier vos informations d'identification et réessayez à nouveau.");
     }
 
     /**
      * @test if you are no connected you are redirected to login page
+     * @return void
      */
     public function testNoLoggedRedirectLoginPage() {
-
-        Route::enableFilters();
+        $this->app->instance('middleware.disable', false);
         $this->call('GET', 'dashboard');
         $this->assertRedirectedToRoute('auth.login');
     }

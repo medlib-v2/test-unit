@@ -6,7 +6,10 @@ use Medlib\Events\UserWasRegistered;
 
 class SendUserMailerTest extends TestCase {
 
-    public function testSendigUserMailSuccess(){
+    /**
+     * @test if an email has been sent with success
+     */
+    public function testSendingUserMailSuccess(){
 
         $user = Factory::create(User::class);
         $response = event(new UserWasRegistered($user));

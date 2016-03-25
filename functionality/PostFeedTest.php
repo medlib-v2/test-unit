@@ -6,7 +6,11 @@ use Illuminate\Support\Facades\Auth;
 
 class PostFeedTest extends TestCase {
 
-	public function testSuccesfulPostFeed() {
+	/**
+	 * @test if a feed has been published
+	 * @return void
+	 */
+	public function testSuccessfulPostFeed() {
 		$currentUser = Factory::create(User::class);
 
 

@@ -6,6 +6,9 @@ use Medlib\Events\FriendRequestWasSent;
 
 class SendEmailFriendRequestTest extends TestCase {
 
+    /**
+     * @test if an email has been sent after a friend request
+     */
     public function testHandleReturnsTrueAfterFriendRequestWasSent() {
 
         $requesterUser = Factory::create(User::class);

@@ -6,6 +6,10 @@ use Laracasts\TestDummy\Factory;
 
 class RegistrationTest extends TestCase {
 
+	/**
+	 * @test if the field first_name is empty
+	 * @return void
+	 */
 	public function testEmptyFirstNameShowsErrorOnSubmit() {
 
 
@@ -31,6 +35,10 @@ class RegistrationTest extends TestCase {
 		])->see('The First Name field is required.');
 	}
 
+	/**
+	 * @test if the field first_name content short charset
+	 * @return void
+	 */
 	public function testFirstNameTooShortShowsErrorOnSubmit() {
 
 		$faker = Faker::create();
@@ -54,6 +62,10 @@ class RegistrationTest extends TestCase {
 		])->see('The First Name must be at least 3 characters');
 	}
 
+	/**
+	 * @test if the field first_name content number
+	 * @return void
+	 */
 	public function testFirstNameContainNumberShowsErrorOnSubmit() {
 
 		$faker = Faker::create();
@@ -78,6 +90,10 @@ class RegistrationTest extends TestCase {
 			])->seeCookie('errors', 'first_name', 'The First Name may only contain letters.');
 	}
 
+	/**
+	 * @test if the field last_name is empty
+	 * @return void
+	 */
 	public function testLastNameEmptyShowsErrorOnSubmit() {
 
 		$faker = Faker::create();
@@ -102,6 +118,10 @@ class RegistrationTest extends TestCase {
             ->see('The Last Name field is required.');
 	}
 
+	/**
+	 * @test if the field last_name content short charset
+	 * @return void
+	 */
 	public function testLastNameTooShortShowsErrorOnSubmit() {
 
 		$faker = Faker::create();
@@ -125,6 +145,10 @@ class RegistrationTest extends TestCase {
 			])->see('The Last Name must be at least 3 characters.');
 	}
 
+	/**
+	 * @test if the field last_name content number
+	 * @return void
+	 */
 	public function testLastNameContainNumberShowsErrorOnSubmit() {
 
 		$faker = Faker::create();
@@ -149,6 +173,10 @@ class RegistrationTest extends TestCase {
             ->see('The Last Name may only contain letters.');
 	}
 
+	/**
+	 * @test if the field username is empty
+	 * @return void
+	 */
 	public function testEmptyNicknameShowsErrorOnSubmit() {
 
 		$faker = Faker::create();
@@ -172,6 +200,10 @@ class RegistrationTest extends TestCase {
 			])->see('The Nickname field is required.');
 	}
 
+	/**
+	 * @test if the field username content short charset
+	 * @return void
+	 */
 	public function testEmptyTooShortNicknameShowsErrorOnSubmit() {
 
 		$faker = Faker::create();
@@ -195,6 +227,10 @@ class RegistrationTest extends TestCase {
 			])->see('The Nickname must be at least 3 characters.');
 	}
 
+	/**
+	 * @test if the field email is empty
+	 * @return void
+	 */
 	public function testEmptyEmailShowsErrorOnSubmit() {
 
 		$faker = Faker::create();
@@ -218,6 +254,10 @@ class RegistrationTest extends TestCase {
 			])->see('The E-mail field is required.');
 	}
 
+	/**
+	 * @test if the email address exist in database
+	 * @return void
+	 */
 	public function testTakenEmailShowsErrorOnSubmit() {
 
 		$user = Factory::create(User::class);
@@ -241,6 +281,10 @@ class RegistrationTest extends TestCase {
 			])->see('The email has already been taken.');
 	}
 
+	/**
+	 * @test if the field password is empty
+	 * @return void
+	 */
 	public function testEmptyPasswordShowsErrorOnSubmit() {
 		$faker = Faker::create();
 		$email = $faker->unique()->email;
@@ -263,6 +307,10 @@ class RegistrationTest extends TestCase {
 			])->see('The Password field is required.');
 	}
 
+	/**
+	 * @test if the password miss match with password_confirm
+	 * @return void
+	 */
 	public function testConfirmPasswordShowsErrorOnSubmit() {
 
 		$faker = Faker::create();
@@ -287,6 +335,10 @@ class RegistrationTest extends TestCase {
 			])->see('The Password Confirmation and Password must match.');
 	}
 
+	/**
+	 * @test if the field password content short charset
+	 * @return void
+	 */
 	public function testPasswordTooShortShowsErrorOnSubmit() {
 		$faker = Faker::create();
 		$email = $faker->unique()->email;
@@ -309,6 +361,10 @@ class RegistrationTest extends TestCase {
 			])->see('The Password must be at least 6 characters');
 	}
 
+	/**
+	 * @test if the field password_confirm is empty
+	 * @return void
+	 */
 	public function testEmptyPasswordConfirmationShowsErrorOnSubmit() {
 		$faker = Faker::create();
 		$email = $faker->unique()->email;

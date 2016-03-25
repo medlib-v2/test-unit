@@ -7,7 +7,7 @@ use Illuminate\Support\Facades\Auth;
 class FriendRequestTest extends TestCase {
 
 	/**
-	 * test a freind request
+	 * @test if a friend was accepted the friend request
 	 * @return void
 	 */
 	public function testAddNewFriendRequest() {
