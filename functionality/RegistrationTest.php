@@ -12,11 +12,10 @@ class RegistrationTest extends TestCase {
 	 */
 	public function testEmptyFirstNameShowsErrorOnSubmit() {
 
-
 		$faker = Faker::create();
 		$email = $faker->unique()->email;
 		$this->visit('/register')
-            ->submitForm('Submit', [
+            ->submitForm('Sing up', [
 			'email' => $email,
 			'email_confirm' => $email,
 			'username' => $faker->unique()->username,
@@ -25,14 +24,13 @@ class RegistrationTest extends TestCase {
 			'first_name' => '',
 			'last_name' => $faker->lastName,
 			'profession' => $faker->randomElement(['student','researcher', 'teacher']),
-			'location' => "",
 			'day'	=>	$faker->dayOfMonth,
 			'month' => $faker->month,
 			'year'	=>	'1980',
 			'gender' => $faker->randomElement(['man','woman']),
 			'profileimage' => $faker->imageUrl($width = 180, $height = 180),
 
-		])->see('The First Name field is required.');
+		])->assertSessionHasErrors(['first_name']);
 	}
 
 	/**
@@ -44,7 +42,7 @@ class RegistrationTest extends TestCase {
 		$faker = Faker::create();
 		$email = $faker->unique()->email;
 		$this->visit('/register')
-			->submitForm('Submit', [
+			->submitForm('Sing up', [
 				'email' => $email,
 				'email_confirm' => $email,
 				'username' => $faker->unique()->username,
@@ -53,13 +51,12 @@ class RegistrationTest extends TestCase {
 				'first_name' => 'g',
 				'last_name' => $faker->lastName,
 				'profession' => $faker->randomElement(['student','researcher', 'teacher']),
-				'location' => "",
 				'day'	=>	$faker->dayOfMonth,
 				'month' => $faker->month,
 				'year'	=>	'1983',
 				'gender' => $faker->randomElement(['man','woman']),
 				'profileimage' => $faker->imageUrl($width = 180, $height = 180),
-		])->see('The First Name must be at least 3 characters');
+		])->assertSessionHasErrors(['first_name']);
 	}
 
 	/**
@@ -72,7 +69,7 @@ class RegistrationTest extends TestCase {
 		$email = $faker->unique()->email;
 
 		$this->visit('/register')
-			->submitForm('Submit', [
+			->submitForm('Sing up', [
 				'email' => $email,
 				'email_confirm' => $email,
 				'username' => $faker->unique()->username,
@@ -81,13 +78,12 @@ class RegistrationTest extends TestCase {
 				'first_name' => $faker->firstName.'12344',
 				'last_name' => $faker->lastName,
 				'profession' => $faker->randomElement(['student','researcher', 'teacher']),
-				'location' => "",
 				'day'	=>	$faker->dayOfMonth,
 				'month' => $faker->month,
 				'year'	=>	'1983',
 				'gender' => $faker->randomElement(['man','woman']),
 				'profileimage' => $faker->imageUrl($width = 180, $height = 180),
-			])->seeCookie('errors', 'first_name', 'The First Name may only contain letters.');
+			])->assertSessionHasErrors(['first_name']);
 	}
 
 	/**
@@ -99,7 +95,7 @@ class RegistrationTest extends TestCase {
 		$faker = Faker::create();
 		$email = $faker->unique()->email;
 		$this->visit('/register')
-			->submitForm('Submit', [
+			->submitForm('Sing up', [
 				'email' => $email,
 				'email_confirm' => $email,
 				'username' => $faker->unique()->username,
@@ -108,14 +104,13 @@ class RegistrationTest extends TestCase {
 				'first_name' => $faker->firstName,
 				'last_name' => '',
 				'profession' => $faker->randomElement(['student','researcher', 'teacher']),
-				'location' => "",
 				'day'	=>	$faker->dayOfMonth,
 				'month' => $faker->month,
 				'year'	=>	'1983',
 				'gender' => $faker->randomElement(['man','woman']),
 				'profileimage' => $faker->imageUrl($width = 180, $height = 180),
 			])
-            ->see('The Last Name field is required.');
+            ->assertSessionHasErrors(['last_name']);
 	}
 
 	/**
@@ -127,7 +122,7 @@ class RegistrationTest extends TestCase {
 		$faker = Faker::create();
 		$email = $faker->unique()->email;
 		$this->visit('/register')
-			->submitForm('Submit', [
+			->submitForm('Sing up', [
 				'email' => $email,
 				'email_confirm' => $email,
 				'username' => $faker->unique()->username,
@@ -136,13 +131,12 @@ class RegistrationTest extends TestCase {
 				'first_name' => $faker->firstName,
 				'last_name' => 'g',
 				'profession' => $faker->randomElement(['student','researcher', 'teacher']),
-				'location' => "",
 				'day'	=>	$faker->dayOfMonth,
 				'month' => $faker->month,
 				'year'	=>	'1983',
 				'gender' => $faker->randomElement(['man','woman']),
 				'profileimage' => $faker->imageUrl($width = 180, $height = 180),
-			])->see('The Last Name must be at least 3 characters.');
+			])->assertSessionHasErrors(['last_name']);
 	}
 
 	/**
@@ -154,7 +148,7 @@ class RegistrationTest extends TestCase {
 		$faker = Faker::create();
 		$email = $faker->unique()->email;
 		$this->visit('/register')
-			->submitForm('Submit', [
+			->submitForm('Sing up', [
 				'email' => $email,
 				'email_confirm' => $email,
 				'username' => $faker->unique()->username,
@@ -163,14 +157,13 @@ class RegistrationTest extends TestCase {
 				'first_name' => $faker->firstName,
 				'last_name' => $faker->lastName.'1234',
 				'profession' => $faker->randomElement(['student','researcher', 'teacher']),
-				'location' => "",
 				'day'	=>	$faker->dayOfMonth,
 				'month' => $faker->month,
 				'year'	=>	'1983',
 				'gender' => $faker->randomElement(['man','woman']),
 				'profileimage' => $faker->imageUrl($width = 180, $height = 180),
 			])
-            ->see('The Last Name may only contain letters.');
+            ->assertSessionHasErrors(['last_name']);
 	}
 
 	/**
@@ -182,7 +175,7 @@ class RegistrationTest extends TestCase {
 		$faker = Faker::create();
 		$email = $faker->unique()->email;
 		$this->visit('/register')
-			->submitForm('Submit', [
+			->submitForm('Sing up', [
 				'email' => '',
 				'email_confirm' => $email,
 				'username' => '',
@@ -191,13 +184,12 @@ class RegistrationTest extends TestCase {
 				'first_name' => $faker->firstName,
 				'last_name' => $faker->lastName,
 				'profession' => $faker->randomElement(['student','researcher', 'teacher']),
-				'location' => "",
 				'day'	=>	$faker->dayOfMonth,
 				'month' => $faker->month,
 				'year'	=>	'1983',
 				'gender' => $faker->randomElement(['man','woman']),
 				'profileimage' => $faker->imageUrl($width = 180, $height = 180),
-			])->see('The Nickname field is required.');
+			])->assertSessionHasErrors(['username']);
 	}
 
 	/**
@@ -209,7 +201,7 @@ class RegistrationTest extends TestCase {
 		$faker = Faker::create();
 		$email = $faker->unique()->email;
 		$this->visit('/register')
-			->submitForm('Submit', [
+			->submitForm('Sing up', [
 				'email' => '',
 				'email_confirm' => $email,
 				'username' => 'de',
@@ -218,13 +210,12 @@ class RegistrationTest extends TestCase {
 				'first_name' => $faker->firstName,
 				'last_name' => $faker->lastName,
 				'profession' => $faker->randomElement(['student','researcher', 'teacher']),
-				'location' => "",
 				'day'	=>	$faker->dayOfMonth,
 				'month' => $faker->month,
 				'year'	=>	'1983',
 				'gender' => $faker->randomElement(['man','woman']),
 				'profileimage' => $faker->imageUrl($width = 180, $height = 180),
-			])->see('The Nickname must be at least 3 characters.');
+			])->assertSessionHasErrors(['username']);
 	}
 
 	/**
@@ -236,7 +227,7 @@ class RegistrationTest extends TestCase {
 		$faker = Faker::create();
 		$email = $faker->unique()->email;
 		$this->visit('/register')
-			->submitForm('Submit', [
+			->submitForm('Sing up', [
 				'email' => '',
 				'email_confirm' => $email,
 				'username' => $faker->unique()->username,
@@ -245,13 +236,12 @@ class RegistrationTest extends TestCase {
 				'first_name' => $faker->firstName,
 				'last_name' => $faker->lastName,
 				'profession' => $faker->randomElement(['student','researcher', 'teacher']),
-				'location' => "",
 				'day'	=>	$faker->dayOfMonth,
 				'month' => $faker->month,
 				'year'	=>	'1983',
 				'gender' => $faker->randomElement(['man','woman']),
 				'profileimage' => $faker->imageUrl($width = 180, $height = 180),
-			])->see('The E-mail field is required.');
+			])->assertSessionHasErrors(['email']);
 	}
 
 	/**
@@ -263,7 +253,7 @@ class RegistrationTest extends TestCase {
 		$user = Factory::create(User::class);
 		$faker = Faker::create();
 		$this->visit('/register')
-			->submitForm('Submit', [
+			->submitForm('Sing up', [
 				'email' => $user->getEmail(),
 				'email_confirm' => $user->getEmail(),
 				'username' => $faker->unique()->username,
@@ -272,13 +262,12 @@ class RegistrationTest extends TestCase {
 				'first_name' => $faker->firstName,
 				'last_name' => $faker->lastName,
 				'profession' => $faker->randomElement(['student','researcher', 'teacher']),
-				'location' => "",
 				'day'	=>	$faker->dayOfMonth,
 				'month' => $faker->month,
 				'year'	=>	'1983',
 				'gender' => $faker->randomElement(['man','woman']),
 				'profileimage' => $faker->imageUrl($width = 180, $height = 180)
-			])->see('The email has already been taken.');
+			])->assertSessionHasErrors(['email']);
 	}
 
 	/**
@@ -289,7 +278,7 @@ class RegistrationTest extends TestCase {
 		$faker = Faker::create();
 		$email = $faker->unique()->email;
 		$this->visit('/register')
-			->submitForm('Submit', [
+			->submitForm('Sing up', [
 				'email' => $email,
 				'email_confirm' => $email,
 				'username' => $faker->unique()->username,
@@ -298,13 +287,12 @@ class RegistrationTest extends TestCase {
 				'first_name' => $faker->firstName,
 				'last_name' => $faker->lastName,
 				'profession' => $faker->randomElement(['student','researcher', 'teacher']),
-				'location' => "",
 				'day'	=>	$faker->dayOfMonth,
 				'month' => $faker->month,
 				'year'	=>	'1983',
 				'gender' => $faker->randomElement(['man','woman']),
 				'profileimage' => $faker->imageUrl($width = 180, $height = 180)
-			])->see('The Password field is required.');
+			])->assertSessionHasErrors(['password']);
 	}
 
 	/**
@@ -317,7 +305,7 @@ class RegistrationTest extends TestCase {
 		$email = $faker->unique()->email;
 
 		$this->visit('/register')
-			->submitForm('Submit', [
+			->submitForm('Sing up', [
 				'email' => $email,
 				'email_confirm' => $email,
 				'username' => $faker->unique()->username,
@@ -326,13 +314,12 @@ class RegistrationTest extends TestCase {
 				'first_name' => $faker->firstName,
 				'last_name' => $faker->lastName,
 				'profession' => $faker->randomElement(['student','researcher', 'teacher']),
-				'location' => "",
 				'day'	=>	$faker->dayOfMonth,
 				'month' => $faker->month,
 				'year'	=>	'1983',
 				'gender' => $faker->randomElement(['man','woman']),
 				'profileimage' => $faker->imageUrl($width = 180, $height = 180)
-			])->see('The Password Confirmation and Password must match.');
+			])->assertSessionHasErrors(['password_confirm']);
 	}
 
 	/**
@@ -343,7 +330,7 @@ class RegistrationTest extends TestCase {
 		$faker = Faker::create();
 		$email = $faker->unique()->email;
 		$this->visit('/register')
-			->submitForm('Submit', [
+			->submitForm('Sing up', [
 				'email' => $email,
 				'email_confirm' => $email,
 				'username' => $faker->unique()->username,
@@ -352,13 +339,12 @@ class RegistrationTest extends TestCase {
 				'first_name' => $faker->firstName,
 				'last_name' => $faker->lastName,
 				'profession' => $faker->randomElement(['student','researcher', 'teacher']),
-				'location' => "",
 				'day'	=>	$faker->dayOfMonth,
 				'month' => $faker->month,
 				'year'	=>	'1983',
 				'gender' => $faker->randomElement(['man','woman']),
 				'profileimage' => $faker->imageUrl($width = 180, $height = 180)
-			])->see('The Password must be at least 6 characters');
+			])->assertSessionHasErrors(['password']);
 	}
 
 	/**
@@ -369,7 +355,7 @@ class RegistrationTest extends TestCase {
 		$faker = Faker::create();
 		$email = $faker->unique()->email;
 		$this->visit('/register')
-			->submitForm('Submit', [
+			->submitForm('Sing up', [
 				'email' => $email,
 				'email_confirm' => $email,
 				'username' => $faker->unique()->username,
@@ -378,20 +364,19 @@ class RegistrationTest extends TestCase {
 				'first_name' => $faker->firstName,
 				'last_name' => $faker->lastName,
 				'profession' => $faker->randomElement(['student','researcher', 'teacher']),
-				'location' => "",
 				'day'	=>	$faker->dayOfMonth,
 				'month' => $faker->month,
 				'year'	=>	'1983',
 				'gender' => $faker->randomElement(['man','woman']),
 				'profileimage' => $faker->imageUrl($width = 180, $height = 180)
-			])->see('The Password Confirmation field is required');
+			])->assertSessionHasErrors(['password_confirm']);
 	}
 
 	public function testEmptyYearShowsErrorOnSubmit() {
 		$faker = Faker::create();
 		$email = $faker->unique()->email;
 		$this->visit('/register')
-			->submitForm('Submit', [
+			->submitForm('Sing up', [
 				'email' => $email,
 				'email_confirm' => $email,
 				'username' => $faker->unique()->username,
@@ -400,13 +385,12 @@ class RegistrationTest extends TestCase {
 				'first_name' => $faker->firstName,
 				'last_name' => $faker->lastName,
 				'profession' => $faker->randomElement(['student','researcher', 'teacher']),
-				'location' => "",
 				'day'	=>	$faker->dayOfMonth,
 				'month' => $faker->month,
 				'year'	=>	'',
 				'gender' => $faker->randomElement(['man','woman']),
 				'profileimage' => $faker->imageUrl($width = 180, $height = 180)
-			])->see('The year field is required');
+			])->assertSessionHasErrors(['year']);
 	}
 
 	public function testNumericYearShowsErrorOnSubmit() {
@@ -414,7 +398,7 @@ class RegistrationTest extends TestCase {
 		$faker = Faker::create();
 		$email = $faker->unique()->email;
 		$this->visit('/register')
-			->submitForm('Submit', [
+			->submitForm('Sing up', [
 				'email' => $email,
 				'email_confirm' => $email,
 				'username' => $faker->unique()->username,
@@ -423,20 +407,19 @@ class RegistrationTest extends TestCase {
 				'first_name' => $faker->firstName,
 				'last_name' => $faker->lastName,
 				'profession' => $faker->randomElement(['student','researcher', 'teacher']),
-				'location' => "",
 				'day'	=>	$faker->dayOfMonth,
 				'month' => $faker->month,
 				'year'	=>	'bab1',
 				'gender' => $faker->randomElement(['man','woman']),
 				'profileimage' => $faker->imageUrl($width = 180, $height = 180)
-			])->see('The year must be a number.');
+			])->assertSessionHasErrors(['year']);
 	}
 
 	public function testYearBeforeCurrentShowsErrorOnSubmit() {
 		$faker = Faker::create();
 		$email = $faker->unique()->email;
 		$this->visit('/register')
-			->submitForm('Submit', [
+			->submitForm('Sing up', [
 				'email' => $email,
 				'email_confirm' => $email,
 				'username' => $faker->unique()->username,
@@ -445,20 +428,19 @@ class RegistrationTest extends TestCase {
 				'first_name' => $faker->firstName,
 				'last_name' => $faker->lastName,
 				'profession' => $faker->randomElement(['student','researcher', 'teacher']),
-				'location' => "",
 				'day'	=>	$faker->dayOfMonth,
 				'month' => $faker->month,
 				'year'	=>	'2015',
 				'gender' => $faker->randomElement(['man','woman']),
 				'profileimage' => $faker->imageUrl($width = 180, $height = 180)
-			])->see('The year must be a date before 2000.');
+			])->assertSessionHasErrors(['year']);
 	}
 
 	public function testEmptyImageShowsErrorOnSubmit() {
 		$faker = Faker::create();
 		$email = $faker->unique()->email;
 		$this->visit('/register')
-			->submitForm('Submit', [
+			->submitForm('Sing up', [
 				'email' => $email,
 				'email_confirm' => $email,
 				'username' => $faker->unique()->username,
@@ -467,13 +449,12 @@ class RegistrationTest extends TestCase {
 				'first_name' => $faker->firstName,
 				'last_name' => $faker->lastName,
 				'profession' => $faker->randomElement(['student','researcher', 'teacher']),
-				'location' => "",
 				'day'	=>	$faker->dayOfMonth,
 				'month' => $faker->month,
 				'year'	=>	'2015',
 				'gender' => $faker->randomElement(['man','woman']),
 				'profileimage' => ''
-			])->see('Your profile image is required.');
+			])->assertSessionHasErrors(['profileimage']);
 	}
 
 

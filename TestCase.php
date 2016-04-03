@@ -77,8 +77,8 @@ class TestCase extends Illuminate\Foundation\Testing\TestCase {
      * @return void
      */
     protected function artisanMigrateRefresh() {
-        Artisan::call('migrate');
         DB::beginTransaction();
+        Artisan::call('migrate');
     }
 
     /**

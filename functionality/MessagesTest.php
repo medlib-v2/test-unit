@@ -14,15 +14,17 @@ class MessagesTest extends TestCase {
 	public function testSendingAmessageToAnotherUser() {
 
 		$currentUser = Factory::create(User::class);
-
 		$otherUser = Factory::create(User::class);
 
 		Auth::login($currentUser);
 
 		$this->visit('/messages/compose/'.$otherUser->getUsername())
-		->submitForm('Submit', ['body' => 'This is the new message to you.'])
-		->seeInDatabase('messages', ['body' => 'This is the new message to you.'])
-		->seeInDatabase('message_responses', ['body' => 'This is the new message to you.']);
+		//->submitForm('Submit', ['body' => 'This is the new message to you.'])
+		->type('This is the new message to you.', 'body')
+		->press('Submit')
+		->seeJsonEquals(['response' => 'success', 'message' => 'Your message was sent.']);
+		//->seeInDatabase('messages', ['body' => 'This is the new message to you.'])
+		//->seeInDatabase('message_responses', ['body' => 'This is the new message to you.']);
 	}
 
 }
