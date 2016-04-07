@@ -267,8 +267,9 @@ class RegistrationTest extends TestCase {
 				'year'	=>	'1983',
 				'gender' => $faker->randomElement(['man','woman']),
 				'profileimage' => $faker->imageUrl($width = 180, $height = 180)
-			])->assertSessionHasErrors(['email']);
+			])->assertSessionHasErrors('email');
 	}
+
 
 	/**
 	 * @test if the field password is empty
@@ -372,6 +373,10 @@ class RegistrationTest extends TestCase {
 			])->assertSessionHasErrors(['password_confirm']);
 	}
 
+	/**
+	 * @test if the field year is empty
+	 * @return void
+	 */
 	public function testEmptyYearShowsErrorOnSubmit() {
 		$faker = Faker::create();
 		$email = $faker->unique()->email;
@@ -381,7 +386,7 @@ class RegistrationTest extends TestCase {
 				'email_confirm' => $email,
 				'username' => $faker->unique()->username,
 				'password' => 'secret1983',
-				'password_confirm'	=> 	'',
+				'password_confirm'	=> 	'secret1983',
 				'first_name' => $faker->firstName,
 				'last_name' => $faker->lastName,
 				'profession' => $faker->randomElement(['student','researcher', 'teacher']),
@@ -393,6 +398,10 @@ class RegistrationTest extends TestCase {
 			])->assertSessionHasErrors(['year']);
 	}
 
+	/**
+	 * @test if the field year is string given
+	 * @return void
+	 */
 	public function testNumericYearShowsErrorOnSubmit() {
 
 		$faker = Faker::create();
@@ -415,6 +424,10 @@ class RegistrationTest extends TestCase {
 			])->assertSessionHasErrors(['year']);
 	}
 
+	/**
+	 * @test if the field year is string given
+	 * @return void
+	 */
 	public function testYearBeforeCurrentShowsErrorOnSubmit() {
 		$faker = Faker::create();
 		$email = $faker->unique()->email;
@@ -436,6 +449,10 @@ class RegistrationTest extends TestCase {
 			])->assertSessionHasErrors(['year']);
 	}
 
+	/**
+	 * @test if the field profileImage attached an image file
+	 * @return void
+	 */
 	public function testEmptyImageShowsErrorOnSubmit() {
 		$faker = Faker::create();
 		$email = $faker->unique()->email;

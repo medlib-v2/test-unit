@@ -15,7 +15,7 @@ class SendEmailFriendRequestTest extends TestCase {
         $requestedUser = Factory::create(User::class);
 
         $response =  event(new FriendRequestWasSent($requestedUser, $requesterUser));
-        dd($response);
+        
         $this->assertTrue($response[0]);
     }
 }

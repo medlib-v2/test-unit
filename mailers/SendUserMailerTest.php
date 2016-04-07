@@ -12,9 +12,8 @@ class SendUserMailerTest extends TestCase {
     public function testSendingUserMailSuccess(){
 
         $user = Factory::create(User::class);
-        $response = event(new UserWasRegistered($user));
 
-        dd($response);
+        $response = event(new UserWasRegistered($user));
 
         $this->assertTrue($response[0]);
     }
