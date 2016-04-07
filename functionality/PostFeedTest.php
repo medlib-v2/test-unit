@@ -11,12 +11,12 @@ class PostFeedTest extends TestCase {
 	 * @return void
 	 */
 	public function testSuccessfulPostFeed() {
-		$currentUser = Factory::create(User::class);
 
+		$currentUser = Factory::create(User::class);
 
 		Auth::login($currentUser);
 
-		 $this->visit('feeds')->submitForm('Publish', ['body' => 'New post']);
+		 $this->visit('profiles/'.$currentUser->getUsername().'/feeds')->submitForm('Publish', ['body' => 'New post']);
 
 		 $feedCount =  $currentUser->feeds()->count();
 
