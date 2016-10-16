@@ -4,9 +4,9 @@ use Medlib\Models\User;
 use Laracasts\TestDummy\Factory;
 use Medlib\Events\UserWasRegistered;
 
-class TestUserWasRegistered extends TestCase
+class UserWasRegisteredTest extends TestCase
 {
-	public function testUserObjectExistinClass()
+	public function testUserObjectExistInClass()
 	{
 		$user = Factory::create(User::class);
 

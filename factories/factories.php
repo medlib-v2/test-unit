@@ -26,8 +26,12 @@ $factory(Medlib\Models\Feed::class, function (Faker\Generator $faker){
 	return [
 		'user_id' => 'factory:Medlib\Models\User',
 		'body' => $faker->sentence,
-		'poster_firstname'  => $faker->firstName,
-		'poster_profile_image'  => $faker->imageUrl($width = 180, $height = 180)
+		'poster_username'  => $faker->username,
+		'poster_profile_image'  => $faker->imageUrl($width = 180, $height = 180),
+		'image_url'  => $faker->imageUrl($width = 180, $height = 180),
+		'video_url'  => "https://www.youtube.com/watch?v=jpdD87aLkUY",
+		'location' => $faker->latitude.",".$faker->longitude,
+
 	];
 });
 

@@ -4,7 +4,7 @@ use Medlib\Models\User;
 use Laracasts\TestDummy\Factory;
 use Medlib\Events\FriendRequestWasSent;
 
-class TestFriendRequestWasSent extends TestCase
+class FriendRequestWasSentTest extends TestCase
 {
 	public function testBothUserObjectsExistInClass()
 	{

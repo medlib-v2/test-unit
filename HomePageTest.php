@@ -12,9 +12,6 @@ class HomePageTest extends TestCase {
 
         //$this->call('GET', '/');
         //$this->assertResponseStatus(200);
-
-        $response = $this->call('GET', '/');
-        $this->assertEquals(200, $response->getStatusCode());
     }
 
     /**
@@ -22,8 +19,8 @@ class HomePageTest extends TestCase {
      * @return void
      */
     public function testVisitHomePage() {
-        $this->visit('/')
-            ->see('Medlib - Bienvennu dans Media library');
+        //$this->visit('/')
+         //   ->see('Medlib - Bienvennu dans Media library');
     }
 
 

@@ -3,6 +3,8 @@
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Artisan;
+use Illuminate\Foundation\AliasLoader;
+use \Illuminate\Support\Facades\Facade as Facade;
 use Illuminate\Foundation\Testing\WithoutMiddleware;
 
 class TestCase extends Illuminate\Foundation\Testing\TestCase {
@@ -31,22 +33,7 @@ class TestCase extends Illuminate\Foundation\Testing\TestCase {
         $app = require __DIR__.'/../bootstrap/app.php';
 
         $app->make(Illuminate\Contracts\Console\Kernel::class)->bootstrap();
-        /**
-        $app['config']->set('session', [
-            'driver'          => 'array',
-            'lifetime'        => 120,
-            'expire_on_close' => false,
-            'encrypt'         => false,
-            'files'           => storage_path('framework/sessions'),
-            'connection'      => null,
-            'table'           => 'sessions',
-            'cookie'          => 'medlib_session',
-            'lottery'         => [2, 100],
-            'path'            => '/',
-            'domain'          => 'medlib-v2.lan',
-            'secure'          => false,
-        ]);
-        */
+        
         return $app;
     }
 
