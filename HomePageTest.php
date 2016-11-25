@@ -19,8 +19,8 @@ class HomePageTest extends TestCase {
      * @return void
      */
     public function testVisitHomePage() {
-        //$this->visit('/')
-         //   ->see('Medlib - Bienvennu dans Media library');
+        $this->visit('/')
+            ->see('Medlib - Bienvennu dans Media library');
     }
 
 

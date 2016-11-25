@@ -42,6 +42,8 @@ class AuthControllerTest extends TestCase {
     public function testLogInUserReturnsRedirectResponseInstance() {
         
         $request = new CreateSessionRequest(['email' => self::$currentUser->email, 'password' => self::$currentUser->password]);
+        $request->setSession($this->manager->driver());
+        $request->session()->set('something', []);
 
         $response =  self::$authController->doLogin($request);
 
@@ -55,6 +57,8 @@ class AuthControllerTest extends TestCase {
     public function testLogInUserReturnsRedirectResponseInstanceLoginWrong() {
 
         $request = new CreateSessionRequest(['email' => 'jon@example.com', 'password' => 'secret1983']);
+        $request->setSession($this->manager->driver());
+        $request->session()->set('something', []);
 
         $response =  self::$authController->doLogin($request);
 

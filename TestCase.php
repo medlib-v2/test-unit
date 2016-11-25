@@ -21,7 +21,7 @@ class TestCase extends Illuminate\Foundation\Testing\TestCase {
      *
      * @var string
      */
-    protected $baseUrl = 'http://medlib-v2.lan';
+    protected $baseUrl = 'http://localhost';
 
     /**
      * Creates the application.
@@ -44,7 +44,12 @@ class TestCase extends Illuminate\Foundation\Testing\TestCase {
     public function setUp() {
         parent::setUp();
 
+        /**
+        * Avoid "Session store not set on request." - Exception!
+        * @see http://laravel-tricks.com/tricks/unit-test-session-store-not-set-on-request
+        */
         Session::setDefaultDriver('array');
+        $this->manager = app('session');
 
         $this->createApplication();
         $this->artisanMigrateRefresh();

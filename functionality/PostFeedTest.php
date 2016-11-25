@@ -16,7 +16,7 @@ class PostFeedTest extends TestCase {
 
 		Auth::login($currentUser);
 
-		 $this->visit('profiles/'.$currentUser->getUsername().'/feeds')->submitForm('Publish', ['body' => 'New post']);
+		 $this->visit('u/'.$currentUser->getUsername().'/feeds')->submitForm('Publish', ['body' => 'New post']);
 
 		 $feedCount =  $currentUser->feeds()->count();
 

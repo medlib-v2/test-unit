@@ -12,7 +12,7 @@ class LoginTest extends TestCase {
     public function testEmptyEmailShowsErrorOnSubmit() {
 
         $this->visit('/')
-            ->submitForm('Connexion', ['email' => '', 'password' => 'secret1983'])
+            ->submitForm('Se connecter', ['email' => '', 'password' => 'secret1983'])
             ->assertSessionHasErrors(['email']);
     }
 
@@ -23,7 +23,7 @@ class LoginTest extends TestCase {
     public function testInvalidEmailShowsErrorOnSubmit() {
 
         $this->visit('/')
-            ->submitForm('Connexion', ['email' => 'jondoe.com', 'password' => 'secret1983'])
+            ->submitForm('Se connecter', ['email' => 'jondoe.com', 'password' => 'secret1983'])
             ->assertSessionHasErrors(['email']);
     }
 
@@ -34,7 +34,7 @@ class LoginTest extends TestCase {
     public function testEmptyPasswordShowsErrorOnSubmit() {
 
         $this->visit('/')
-            ->submitForm('Connexion', ['email' => 'jon@Doe.com', 'password' => ''])
+            ->submitForm('Se connecter', ['email' => 'jon@Doe.com', 'password' => ''])
             ->assertSessionHasErrors(['password']);
     }
 
@@ -47,7 +47,7 @@ class LoginTest extends TestCase {
         $currentUser = Factory::create(User::class);
 
         $this->visit('/')
-            ->submitForm('Connexion', ['email' => $currentUser->getEmail(), 'password' => 'heheheh'])
+            ->submitForm('Se connecter', ['email' => $currentUser->getEmail(), 'password' => 'heheheh'])
             ->see("Nous avons été incapables de vous connecter. Merci vérifier vos informations d'identification et réessayez à nouveau.");
     }
 

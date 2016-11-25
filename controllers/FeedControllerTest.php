@@ -28,7 +28,6 @@ class FeedControllerTest extends TestCase
 
 	public static function setUpBeforeClass() {
 		self::$currentUser = Factory::create(User::class);
-		Auth::login(self::$currentUser, true);
 		self::$feedController = new FeedController();
 	}
 
@@ -50,7 +49,8 @@ class FeedControllerTest extends TestCase
 	 * @test if the instance return equal to view
 	 */
 	public function testIndexReturnsViewInstance() {
-
+		Auth::login(self::$currentUser, true);
+		
 		$feeds = Factory::times(20)->create(Feed::class, ['user_id' => self::$currentUser->id]);
 
 		$request = new Request(['username' => self::$currentUser->getUsername()]);
@@ -60,10 +60,10 @@ class FeedControllerTest extends TestCase
 		$commentRepository = new EloquentCommentRepository();
 
 		$response = self::$feedController->index($request->username, $feedRepository, $userRepository, $commentRepository);
-		
+
 		$this->assertInstanceOf(View::class, $response);
 	}
-	
+
 	/**
 	 * @test if the instance return is equal to JsonResponse
 	 */
@@ -74,7 +74,7 @@ class FeedControllerTest extends TestCase
 		$request = new Request(['body' => 'Hello my friend']);
 
 		$response = self::$feedController->store($request);
-		
+
 		$this->assertInstanceOf(JsonResponse::class, $response);
 	}
 

@@ -18,8 +18,8 @@ class FriendRequestTest extends TestCase {
 
 		Auth::login($currentUser);
 
-		$this->visit('profiles/'.$otherUser->getUsername())
-		->click('Add friend');
+		$this->visit('u/'.$otherUser->getUsername())
+		->click('Ajouter de la liste d’amis');
 
 		$this->assertResponseOk();
 	}
