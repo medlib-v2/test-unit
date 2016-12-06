@@ -1,6 +1,9 @@
 <?php
 
+namespace Medlib\Tests\Functionality;
+
 use Medlib\Models\User;
+use Medlib\Tests\TestCase;
 use Laracasts\TestDummy\Factory;
 use Illuminate\Support\Facades\Auth;
 
@@ -11,7 +14,7 @@ class MessagesTest extends TestCase {
 	 * @test if a message as sent to an other user
 	 * @return void
 	 */
-	public function testSendingAmessageToAnotherUser() {
+	public function testSendingAMessageToAnotherUser() {
 
 		$currentUser = Factory::create(User::class);
 		$otherUser = Factory::create(User::class);

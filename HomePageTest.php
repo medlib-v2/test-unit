@@ -1,5 +1,8 @@
 <?php
 
+namespace Medlib\Tests;
+
+use Medlib\Tests\TestCase;
 use Illuminate\Support\Facades\Request;
 
 class HomePageTest extends TestCase {

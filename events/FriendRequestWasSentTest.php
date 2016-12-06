@@ -1,6 +1,9 @@
-<?php 
+<?php
+
+namespace Medlib\Tests\Events;
 
 use Medlib\Models\User;
+use Medlib\Tests\TestCase;
 use Laracasts\TestDummy\Factory;
 use Medlib\Events\FriendRequestWasSent;
 

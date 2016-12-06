@@ -1,7 +1,10 @@
 <?php
 
+namespace Medlib\Tests\Controllers;
+
 use Medlib\Models\User;
 use Illuminate\View\View;
+use Medlib\Tests\TestCase;
 use Illuminate\Http\Request;
 use Medlib\Models\FriendRequest;
 use Laracasts\TestDummy\Factory;
@@ -10,8 +13,6 @@ use Illuminate\Support\Facades\Auth;
 use Medlib\Repositories\User\EloquentUserRepository;
 use Medlib\Http\Controllers\Friends\FriendRequestController;
 use Medlib\Repositories\FriendRequest\EloquentFriendRequestRepository;
-
-
 
 class FriendRequestControllerTest extends TestCase
 {

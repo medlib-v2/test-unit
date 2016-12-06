@@ -1,13 +1,15 @@
 <?php
 
+namespace Medlib\Tests;
+
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Artisan;
-use Illuminate\Foundation\AliasLoader;
-use \Illuminate\Support\Facades\Facade as Facade;
+use Illuminate\Contracts\Console\Kernel;
 use Illuminate\Foundation\Testing\WithoutMiddleware;
+use Illuminate\Foundation\Testing\TestCase as BaseTestCase;
 
-class TestCase extends Illuminate\Foundation\Testing\TestCase {
+class TestCase extends  BaseTestCase {
 
     use WithoutMiddleware;
 
@@ -32,7 +34,7 @@ class TestCase extends Illuminate\Foundation\Testing\TestCase {
 
         $app = require __DIR__.'/../bootstrap/app.php';
 
-        $app->make(Illuminate\Contracts\Console\Kernel::class)->bootstrap();
+        $app->make(Kernel::class)->bootstrap();
         
         return $app;
     }

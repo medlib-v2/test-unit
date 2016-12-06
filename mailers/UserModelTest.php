@@ -1,6 +1,9 @@
 <?php
 
+namespace Medlib\Tests\Mailers;
+
 use Medlib\Models\Feed;
+use Medlib\Tests\TestCase;
 use Laracasts\TestDummy\Factory;
 
 class UserModelTest extends TestCase {

@@ -14,11 +14,10 @@ $factory(Medlib\Models\User::class, function (Faker\Generator $faker) {
 		'location' => "",
 		'date_of_birth' => $faker->date,
 		'gender' => $faker->randomElement(['man','woman']),
-		'user_active' => true,
+		'activated' => true,
 		'account_type' => false,
 		'user_avatar' => $faker->imageUrl($width = 180, $height = 180),
-		'remember_token' => str_random(10),
-		'confirmation_code' => UserTableSeeder::generateToken()
+		'remember_token' => str_random(10)
 	];
 });
 

@@ -1,6 +1,9 @@
 <?php
 
+namespace Medlib\Tests\Controllers;
+
 use Illuminate\View\View;
+use Medlib\Tests\TestCase;
 use Illuminate\Http\Request;
 use Medlib\Http\Controllers\Search\SearchQueryController;
 

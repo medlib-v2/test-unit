@@ -1,6 +1,9 @@
 <?php
 
+namespace Medlib\Tests\Controllers;
+
 use Illuminate\View\View;
+use Medlib\Tests\TestCase;
 use Medlib\Http\Requests\RegisterUserRequest;
 use Medlib\Http\Controllers\Auth\AuthController;
 

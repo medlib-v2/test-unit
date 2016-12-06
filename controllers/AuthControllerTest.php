@@ -1,7 +1,11 @@
 <?php
 
+namespace Medlib\Tests\Controllers;
+
+use Faker;
 use Medlib\Models\User;
 use Illuminate\View\View;
+use Medlib\Tests\TestCase;
 use Illuminate\Http\Request;
 use Laracasts\TestDummy\Factory;
 use Illuminate\Support\Facades\Auth;

@@ -1,6 +1,9 @@
 <?php
 
+namespace Medlib\Tests\Functionality;
+
 use Medlib\Models\User;
+use Medlib\Tests\TestCase;
 use Laracasts\TestDummy\Factory;
 use Illuminate\Support\Facades\Auth;
 

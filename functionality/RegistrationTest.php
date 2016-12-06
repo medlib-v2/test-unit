@@ -1,8 +1,9 @@
 <?php
 
-use Medlib\Models\User;
+namespace Medlib\Tests\Functionality;
+
+use Medlib\Tests\TestCase;
 use Faker\Factory as Faker;
-use Laracasts\TestDummy\Factory;
 
 class RegistrationTest extends TestCase {
 

@@ -1,7 +1,10 @@
 <?php
 
+namespace Medlib\Tests\Controllers;
+
 use Medlib\Models\User;
 use Illuminate\View\View;
+use Medlib\Tests\TestCase;
 use Laracasts\TestDummy\Factory;
 use Illuminate\Support\Facades\Auth;
 use Medlib\Repositories\User\EloquentUserRepository;
