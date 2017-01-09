@@ -21,10 +21,9 @@ namespace Medlib\Tests\Models;
 
 use Medlib\Tests\TestCase;
 
-class AuthorTest extends TestCase {
-
-    public function testConstruction(){
-        
-        
+class AuthorTest extends TestCase
+{
+    public function testConstruction()
+    {
     }
 }

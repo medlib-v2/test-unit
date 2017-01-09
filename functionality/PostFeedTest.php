@@ -7,22 +7,23 @@ use Medlib\Tests\TestCase;
 use Laracasts\TestDummy\Factory;
 use Illuminate\Support\Facades\Auth;
 
-class PostFeedTest extends TestCase {
+class PostFeedTest extends TestCase
+{
 
-	/**
-	 * @test if a feed has been published
-	 * @return void
-	 */
-	public function testSuccessfulPostFeed() {
+    /**
+     * @test if a feed has been published
+     * @return void
+     */
+    public function testSuccessfulPostFeed()
+    {
+        $currentUser = Factory::create(User::class);
 
-		$currentUser = Factory::create(User::class);
+        Auth::login($currentUser);
 
-		Auth::login($currentUser);
+        $this->visit('u/'.$currentUser->getUsername().'/feeds')->submitForm('Publish', ['body' => 'New post']);
 
-		 $this->visit('u/'.$currentUser->getUsername().'/feeds')->submitForm('Publish', ['body' => 'New post']);
+        $feedCount =  $currentUser->feeds()->count();
 
-		 $feedCount =  $currentUser->feeds()->count();
-
-		 $this->assertEquals(1, $feedCount);
-	}
+        $this->assertEquals(1, $feedCount);
+    }
 }

@@ -6,9 +6,8 @@ use Medlib\Models\Feed;
 use Medlib\Tests\TestCase;
 use Laracasts\TestDummy\Factory;
 
-class UserModelTest extends TestCase {
-
-
+class UserModelTest extends TestCase
+{
     public function testPostedAtFeed()
     {
         /**
@@ -25,8 +24,8 @@ class UserModelTest extends TestCase {
         /**
          * True if preg_match finds the pattern
          */
-        $matches = ( preg_match($expected, $post->publishAt()) ) ? true : false;
+        $matches = (preg_match($expected, $post->publishAt())) ? true : false;
 
-        $this->assertTrue( $matches );
+        $this->assertTrue($matches);
     }
 }

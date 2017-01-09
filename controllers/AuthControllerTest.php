@@ -6,7 +6,6 @@ use Faker;
 use Medlib\Models\User;
 use Illuminate\View\View;
 use Medlib\Tests\TestCase;
-use Illuminate\Http\Request;
 use Laracasts\TestDummy\Factory;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\RedirectResponse;
@@ -15,7 +14,8 @@ use Medlib\Http\Requests\CreateSessionRequest;
 use Medlib\Http\Controllers\Auth\AuthController;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 
-class AuthControllerTest extends TestCase {
+class AuthControllerTest extends TestCase
+{
 
     /**
      * @var \Medlib\Http\Controllers\Auth\AuthController
@@ -25,17 +25,19 @@ class AuthControllerTest extends TestCase {
     /**
      * @var \Medlib\Models\User
      */
-    protected  static $currentUser;
+    protected static $currentUser;
 
     /**
      * Set up the environment of test
      */
-    public static function setUpBeforeClass() {
+    public static function setUpBeforeClass()
+    {
         self::$currentUser = Factory::create(User::class);
         self::$authController = new AuthController;
     }
 
-    public static function tearDownAfterClass() {
+    public static function tearDownAfterClass()
+    {
         Auth::logout();
         self::$authController = null;
     }
@@ -43,8 +45,8 @@ class AuthControllerTest extends TestCase {
     /**
      * @test if instance return equal to RedirectResponse
      */
-    public function testLogInUserReturnsRedirectResponseInstance() {
-        
+    public function testLogInUserReturnsRedirectResponseInstance()
+    {
         $request = new CreateSessionRequest(['email' => self::$currentUser->email, 'password' => self::$currentUser->password]);
         $request->setSession($this->manager->driver());
         $request->session()->set('something', []);
@@ -52,14 +54,13 @@ class AuthControllerTest extends TestCase {
         $response =  self::$authController->doLogin($request);
 
         $this->assertInstanceOf(RedirectResponse::class, $response);
-
     }
 
     /**
      * @test if user is logged and the instance return equal to RedirectResponse
      */
-    public function testLogInUserReturnsRedirectResponseInstanceLoginWrong() {
-
+    public function testLogInUserReturnsRedirectResponseInstanceLoginWrong()
+    {
         $request = new CreateSessionRequest(['email' => 'jon@example.com', 'password' => 'secret1983']);
         $request->setSession($this->manager->driver());
         $request->session()->set('something', []);
@@ -69,14 +70,13 @@ class AuthControllerTest extends TestCase {
         $this->assertFalse(Auth::check());
 
         $this->assertInstanceOf(RedirectResponse::class, $response);
-
     }
 
     /**
      * @test if logout and the instance return equal to RedirectResponse
      */
-    public function testLogoutUserReturnsRedirectResponseInstance() {
-
+    public function testLogoutUserReturnsRedirectResponseInstance()
+    {
         Auth::login(self::$currentUser);
 
         $response =  self::$authController->doLogout();
@@ -84,12 +84,11 @@ class AuthControllerTest extends TestCase {
         $this->assertFalse(Auth::check());
 
         $this->assertInstanceOf(RedirectResponse::class, $response);
-
     }
 
 
-    public function testShowRegisterReturnsViewInstance() {
-
+    public function testShowRegisterReturnsViewInstance()
+    {
         $response = self::$authController->showRegister();
 
         $this->assertInstanceOf(View::class, $response);
@@ -98,8 +97,8 @@ class AuthControllerTest extends TestCase {
     /**
      * @test if logout and the instance return equal to RedirectResponse
      */
-    public function testRegistrationUserReturnsRedirectResponseInstance() {
-
+    public function testRegistrationUserReturnsRedirectResponseInstance()
+    {
         $faker = Faker\Factory::create('fr_FR');
         $email = $faker->unique()->email;
         $username = $faker->unique()->username;
@@ -130,7 +129,5 @@ class AuthControllerTest extends TestCase {
         $response =  self::$authController->doRegister($request);
         
         $this->assertInstanceOf(RedirectResponse::class, $response);
-
     }
-
 }

@@ -2,7 +2,10 @@
 
 namespace Medlib\Tests\TestForms;
 
+use Medlib\Models\User;
 use Medlib\Tests\TestCase;
+use Laracasts\TestDummy\Factory;
+use Illuminate\Support\Facades\Auth;
 
 class SettingsAdminTest extends TestCase
 {
@@ -13,12 +16,16 @@ class SettingsAdminTest extends TestCase
     public function testChangeUserPassword()
     {
         /**
-        $this->seePageIs('/settings/admin');
-        $this->type('secret1983', 'password_current');
-        $this->type('secret1982', 'password_new');
-        $this->type('secret1982', 'password_confirm');
-        $this->press('Mettre à jour');
-        $this->seeInDatabase('users', ['password' => 'secret1982']);
+        $user = Factory::create(User::class);
+
+        Auth::login($user);
+
+        $this->visit('/settings/admin')
+            ->type('secret1983', 'password_current')
+            ->type('secret1982', 'password_new')
+            ->type('secret1982', 'password_confirm')
+            ->press('Mettre à jour')
+            ->seeInDatabase('users', ['password' => 'secret1982']);
         **/
     }
 

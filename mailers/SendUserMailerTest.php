@@ -5,17 +5,19 @@ namespace Medlib\Tests\Mailers;
 use Medlib\Models\User;
 use Medlib\Tests\TestCase;
 use Laracasts\TestDummy\Factory;
+use Medlib\Models\ConfirmationToken;
 use Medlib\Events\UserWasRegistered;
 
-class SendUserMailerTest extends TestCase {
+class SendUserMailerTest extends TestCase
+{
 
     /**
      * @test if an email has been sent with success
      */
-    public function testSendingUserMailSuccess(){
-
+    public function testSendingUserMailSuccess()
+    {
         $user = Factory::create(User::class);
-
+        ConfirmationToken::create(['user_id' => $user->id]);
         $response = event(new UserWasRegistered($user));
 
         $this->assertTrue($response[0]);

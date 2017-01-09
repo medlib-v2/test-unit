@@ -9,17 +9,16 @@ use Medlib\Events\FriendRequestWasSent;
 
 class FriendRequestWasSentTest extends TestCase
 {
-	public function testBothUserObjectsExistInClass()
-	{
-		$requestedUser = Factory::create(User::class);
+    public function testBothUserObjectsExistInClass()
+    {
+        $requestedUser = Factory::create(User::class);
 
-		$requesterUser = Factory::create(User::class);
+        $requesterUser = Factory::create(User::class);
 
-		$event = new FriendRequestWasSent($requestedUser, $requesterUser);
+        $event = new FriendRequestWasSent($requestedUser, $requesterUser);
 
-		$this->assertEquals($requesterUser->email, $event->requesterUser->email);
+        $this->assertEquals($requesterUser->email, $event->requesterUser->email);
 
-		$this->assertEquals($requestedUser->email, $event->requestedUser->email);
-	}
-
+        $this->assertEquals($requestedUser->email, $event->requestedUser->email);
+    }
 }

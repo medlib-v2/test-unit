@@ -16,87 +16,88 @@ use Medlib\Repositories\Feed\EloquentFeedRepository;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use \Medlib\Repositories\Comment\EloquentCommentRepository;
 
-
 class FeedControllerTest extends TestCase
 {
-	/**
-	 * @var \Medlib\Http\Controllers\Feeds\FeedController
-	 */
-	protected static $feedController;
+    /**
+     * @var \Medlib\Http\Controllers\Feeds\FeedController
+     */
+    protected static $feedController;
 
-	/**
-	 * @var \Medlib\Models\User
-	 */
-	protected  static $currentUser;
+    /**
+     * @var \Medlib\Models\User
+     */
+    protected static $currentUser;
 
-	public static function setUpBeforeClass() {
-		self::$currentUser = Factory::create(User::class);
-		self::$feedController = new FeedController();
-	}
+    public static function setUpBeforeClass()
+    {
+        self::$currentUser = Factory::create(User::class);
+        self::$feedController = new FeedController();
+    }
 
-	public static function getImageFile($filename, $type = 'image/jpeg') {
-		return $file = new UploadedFile( $filename, basename($filename), $type, null, null, true);
-	}
+    public static function getImageFile($filename, $type = 'image/jpeg')
+    {
+        return $file = new UploadedFile($filename, basename($filename), $type, null, null, true);
+    }
 
-	/**
-	 * Unset all variables and logout after test down
-	 */
-	public static function tearDownAfterClass()
-	{
-		Auth::logout();
-		self::$feedController = null;
-		self::$currentUser = null;
-	}
+    /**
+     * Unset all variables and logout after test down
+     */
+    public static function tearDownAfterClass()
+    {
+        Auth::logout();
+        self::$feedController = null;
+        self::$currentUser = null;
+    }
 
-	/**
-	 * @test if the instance return equal to view
-	 */
-	public function testIndexReturnsViewInstance() {
-		Auth::login(self::$currentUser, true);
-		
-		$feeds = Factory::times(20)->create(Feed::class, ['user_id' => self::$currentUser->id]);
+    /**
+     * @test if the instance return equal to view
+     */
+    public function testIndexReturnsViewInstance()
+    {
+        Auth::login(self::$currentUser, true);
+        
+        $feeds = Factory::times(20)->create(Feed::class, ['user_id' => self::$currentUser->id]);
 
-		$request = new Request(['username' => self::$currentUser->getUsername()]);
+        $request = new Request(['username' => self::$currentUser->getUsername()]);
 
-		$feedRepository = new EloquentFeedRepository;
-		$userRepository = new EloquentUserRepository;
-		$commentRepository = new EloquentCommentRepository();
+        $feedRepository = new EloquentFeedRepository;
+        $userRepository = new EloquentUserRepository;
+        $commentRepository = new EloquentCommentRepository();
 
-		$response = self::$feedController->index($request->username, $feedRepository, $userRepository, $commentRepository);
+        $response = self::$feedController->index($request->username, $feedRepository, $userRepository, $commentRepository);
 
-		$this->assertInstanceOf(View::class, $response);
-	}
+        $this->assertInstanceOf(View::class, $response);
+    }
 
-	/**
-	 * @test if the instance return is equal to JsonResponse
-	 */
-	public function testStoreReturnsJsonResponseInstance()
-	{
-		Auth::login(self::$currentUser);
+    /**
+     * @test if the instance return is equal to JsonResponse
+     */
+    public function testStoreReturnsJsonResponseInstance()
+    {
+        Auth::login(self::$currentUser);
 
-		$request = new Request(['body' => 'Hello my friend']);
+        $request = new Request(['body' => 'Hello my friend']);
 
-		$response = self::$feedController->store($request);
+        $response = self::$feedController->store($request);
 
-		$this->assertInstanceOf(JsonResponse::class, $response);
-	}
+        $this->assertInstanceOf(JsonResponse::class, $response);
+    }
 
-	/**
-	 * @test if the instance return is equal to JsonResponse
-	 */
-	public function testStoreFileReturnsJsonResponseInstance() {
+    /**
+     * @test if the instance return is equal to JsonResponse
+     */
+    public function testStoreFileReturnsJsonResponseInstance()
+    {
+        Auth::login(self::$currentUser);
 
-		Auth::login(self::$currentUser);
+        $file = public_path('avatars/a2.jpg');
 
-		$file = public_path('avatars/a2.jpg');
+        $fileUpload = self::getImageFile($file);
 
-		$fileUpload = self::getImageFile($file);
+        $request = new Request(['body' => 'Hello my friend, I will be send you an image', 'image' => $fileUpload]);
 
-		$request = new Request(['body' => 'Hello my friend, I will be send you an image', 'image' => $fileUpload]);
+        $response = self::$feedController->store($request);
 
-		$response = self::$feedController->store($request);
-
-		$this->assertInstanceOf(JsonResponse::class, $response);
-	}
-
+        $this->assertInstanceOf(JsonResponse::class, $response);
+    }
 }

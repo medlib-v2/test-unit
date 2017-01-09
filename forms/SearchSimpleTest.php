@@ -6,16 +6,14 @@ use Medlib\Tests\TestCase;
 
 class SearchSimpleTest extends TestCase
 {
-
     public function testSearchSimpleTestInterface()
     {
         /**
-        $this->seePageIs('/');
-        $this->type('php', 'query');
-        $this->select('SUDOC', 'qdb');
-        $this->press('');
-        $this->seePageIs('/search/simple');
-        $this->see('CakePHP 3 :');
+        $this->visit('/')
+            ->submitForm('', ['query' => 'php', 'qdb' => 'SUDOC'])
+            ->andSee('CakePHP 3 :')
+            ->onPage('/search/simple');
+
         **/
     }
 }

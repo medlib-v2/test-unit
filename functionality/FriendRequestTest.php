@@ -7,23 +7,24 @@ use Medlib\Tests\TestCase;
 use Laracasts\TestDummy\Factory;
 use Illuminate\Support\Facades\Auth;
 
-class FriendRequestTest extends TestCase {
+class FriendRequestTest extends TestCase
+{
 
-	/**
-	 * @test if a friend was accepted the friend request
-	 * @return void
-	 */
-	public function testAddNewFriendRequest() {
+    /**
+     * @test if a friend was accepted the friend request
+     * @return void
+     */
+    public function testAddNewFriendRequest()
+    {
+        $currentUser = Factory::create(User::class);
 
-		$currentUser = Factory::create(User::class);
+        $otherUser = Factory::create(User::class);
 
-		$otherUser = Factory::create(User::class);
+        Auth::login($currentUser);
 
-		Auth::login($currentUser);
+        $this->visit('u/'.$otherUser->getUsername())
+            ->click('Ajouter de la liste d\'amis');
 
-		$this->visit('u/'.$otherUser->getUsername())
-            ->click('Ajouter de la liste d’amis');
-
-		$this->assertResponseOk();
-	}
+        $this->assertResponseOk();
+    }
 }

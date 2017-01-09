@@ -7,7 +7,8 @@ use Medlib\Tests\TestCase;
 use Illuminate\Http\Request;
 use Medlib\Http\Controllers\Search\SearchQueryController;
 
-class SearchQueryControllerTest extends TestCase {
+class SearchQueryControllerTest extends TestCase
+{
 
     /**
      * @var \Medlib\Http\Controllers\Search\SearchQueryController
@@ -17,11 +18,13 @@ class SearchQueryControllerTest extends TestCase {
     /**
      * Set up the environment of test
      */
-    public static function setUpBeforeClass() {
+    public static function setUpBeforeClass()
+    {
         self::$searchQueryController = new SearchQueryController;
     }
 
-    public static function tearDownAfterClass() {
+    public static function tearDownAfterClass()
+    {
         self::$searchQueryController = null;
     }
 

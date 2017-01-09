@@ -9,13 +9,12 @@ use Medlib\Events\UserWasRegistered;
 
 class UserWasRegisteredTest extends TestCase
 {
-	public function testUserObjectExistInClass()
-	{
-		$user = Factory::create(User::class);
+    public function testUserObjectExistInClass()
+    {
+        $user = Factory::create(User::class);
 
-		$event = new UserWasRegistered($user);
+        $event = new UserWasRegistered($user);
 
-		$this->assertEquals($user->firstname, $event->user->firstname);
-		
-	}
+        $this->assertEquals($user->firstname, $event->user->firstname);
+    }
 }

@@ -9,8 +9,8 @@ use Illuminate\Contracts\Console\Kernel;
 use Illuminate\Foundation\Testing\WithoutMiddleware;
 use Illuminate\Foundation\Testing\TestCase as BaseTestCase;
 
-class TestCase extends  BaseTestCase {
-
+class TestCase extends BaseTestCase
+{
     use WithoutMiddleware;
 
     /**
@@ -23,15 +23,15 @@ class TestCase extends  BaseTestCase {
      *
      * @var string
      */
-    protected $baseUrl = 'http://localhost';
+    protected $baseUrl = 'http://medlib.app';
 
     /**
      * Creates the application.
      *
      * @return \Illuminate\Foundation\Application
      */
-    public function createApplication() {
-
+    public function createApplication()
+    {
         $app = require __DIR__.'/../bootstrap/app.php';
 
         $app->make(Kernel::class)->bootstrap();
@@ -43,7 +43,8 @@ class TestCase extends  BaseTestCase {
      * Settings the environment test
      * @return void
      */
-    public function setUp() {
+    public function setUp()
+    {
         parent::setUp();
 
         /**
@@ -61,7 +62,8 @@ class TestCase extends  BaseTestCase {
      * Resetting all information this environment test
      * @return void
      */
-    public function tearDown() {
+    public function tearDown()
+    {
         parent::tearDown();
         $this->artisanMigrateReset();
     }
@@ -70,7 +72,8 @@ class TestCase extends  BaseTestCase {
      * Push in database all tables with in content
      * @return void
      */
-    protected function artisanMigrateRefresh() {
+    protected function artisanMigrateRefresh()
+    {
         DB::beginTransaction();
         Artisan::call('migrate');
     }
@@ -79,9 +82,9 @@ class TestCase extends  BaseTestCase {
      * Resetting all tables with content in database
      * @return void
      */
-    protected function artisanMigrateReset() {
+    protected function artisanMigrateReset()
+    {
         //Artisan::call('migrate:reset');
         DB::rollback();
     }
-
 }

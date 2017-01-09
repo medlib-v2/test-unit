@@ -9,7 +9,8 @@ class RegistrationSocialTest extends TestCase
 {
     public function testItCallsTheFacebookCallback()
     {
-        $abstractUser = Mockery::mock('Laravel\Socialite\Two\User');
+        /**
+        $abstractUser = \Mockery::mock('Laravel\Socialite\Two\User');
         $abstractUser->shouldReceive('getId')
             ->andReturn(1234567890)
             ->shouldReceive('getEmail')
@@ -21,7 +22,7 @@ class RegistrationSocialTest extends TestCase
             ->shouldReceive('getAvatar')
             ->andReturn('https://en.gravatar.com/userimage');
 
-        $provider = Mockery::mock('Laravel\Socialite\Contracts\Provider');
+        $provider = \Mockery::mock('Laravel\Socialite\Contracts\Provider');
         $provider->shouldReceive('user')->andReturn($abstractUser);
 
         Socialite::shouldReceive('driver')->with('facebook')->andReturn($provider);
@@ -29,11 +30,6 @@ class RegistrationSocialTest extends TestCase
         $this->visit(route("auth.social", ['provider' => 'facebook']))
             ->seePageIs(route("home"));
 
-        /**
-         * replace the return value of true with whatever values you wish to return for your test
-         *
-         * Socialite::shouldReceive('driver->fields->scopes->user')->andReturn(true);
-         * $this->visit('/auth/facebook/callback');
-         */
+        **/
     }
 }
