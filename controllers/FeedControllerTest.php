@@ -4,7 +4,6 @@ namespace Medlib\Tests\Controllers;
 
 use Medlib\Models\User;
 use Medlib\Models\Feed;
-use Illuminate\View\View;
 use Medlib\Tests\TestCase;
 use Illuminate\Http\Request;
 use Laracasts\TestDummy\Factory;
@@ -52,7 +51,7 @@ class FeedControllerTest extends TestCase
     /**
      * @test if the instance return equal to view
      */
-    public function testIndexReturnsViewInstance()
+    public function testIndexReturnsJsonResponseInstance()
     {
         Auth::login(self::$currentUser, true);
         
@@ -66,7 +65,7 @@ class FeedControllerTest extends TestCase
 
         $response = self::$feedController->index($request->username, $feedRepository, $userRepository, $commentRepository);
 
-        $this->assertInstanceOf(View::class, $response);
+        $this->assertInstanceOf(JsonResponse::class, $response);
     }
 
     /**

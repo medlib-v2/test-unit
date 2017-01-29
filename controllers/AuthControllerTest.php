@@ -120,7 +120,7 @@ class AuthControllerTest extends TestCase
             'last_name' => $faker->lastName,
             'profession' => $faker->randomElement(['student','researcher', 'teacher']),
             'location' => 'Paris, Ile-de-France',
-            'gender' => $faker->randomElement(['man','woman']),
+            'gender' => $faker->randomElement(['male','female']),
             'year' => 1983,
             'month' => 8,
             'day' => 25,
