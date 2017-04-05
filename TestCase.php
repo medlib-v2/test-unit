@@ -1,43 +1,28 @@
 <?php
 
-namespace Medlib\Tests;
+namespace Tests;
 
+use Medlib\Models\User;
+use Medlib\Models\Profile;
+use Medlib\Models\Timeline;
+use Tests\Traits\TestHelpers;
+use Laracasts\TestDummy\Factory;
 use Illuminate\Support\Facades\DB;
+use Tests\Traits\DatabaseMigrations;
+use Tests\Traits\CreatesApplication;
 use Illuminate\Support\Facades\Session;
-use Illuminate\Support\Facades\Artisan;
-use Illuminate\Contracts\Console\Kernel;
 use Illuminate\Foundation\Testing\WithoutMiddleware;
 use Illuminate\Foundation\Testing\TestCase as BaseTestCase;
 
-class TestCase extends BaseTestCase
+
+abstract class TestCase extends BaseTestCase
 {
-    use WithoutMiddleware;
+    use TestHelpers, CreatesApplication, WithoutMiddleware, DatabaseMigrations;
 
     /**
-     * @var \Illuminate\Session\SessionManager
-     */
+    * @var \Illuminate\Session\SessionManager
+    */
     protected $manager;
-
-    /**
-     * The base URL to use while testing the application.
-     *
-     * @var string
-     */
-    protected $baseUrl = 'http://medlib.app';
-
-    /**
-     * Creates the application.
-     *
-     * @return \Illuminate\Foundation\Application
-     */
-    public function createApplication()
-    {
-        $app = require __DIR__.'/../bootstrap/app.php';
-
-        $app->make(Kernel::class)->bootstrap();
-        
-        return $app;
-    }
 
     /**
      * Settings the environment test
@@ -48,14 +33,12 @@ class TestCase extends BaseTestCase
         parent::setUp();
 
         /**
-        * Avoid "Session store not set on request." - Exception!
-        * @see http://laravel-tricks.com/tricks/unit-test-session-store-not-set-on-request
-        */
-        Session::setDefaultDriver('array');
+         * Avoid "Session store not set on request." - Exception!
+         * @see http://laravel-tricks.com/tricks/unit-test-session-store-not-set-on-request
+         * Session::setDefaultDriver('array');
+         * Session::start();
+         */
         $this->manager = app('session');
-
-        $this->createApplication();
-        $this->artisanMigrateRefresh();
     }
 
     /**
@@ -69,22 +52,37 @@ class TestCase extends BaseTestCase
     }
 
     /**
-     * Push in database all tables with in content
-     * @return void
+     * @return User
      */
-    protected function artisanMigrateRefresh()
+    public function getUser()
     {
-        DB::beginTransaction();
-        Artisan::call('migrate');
-    }
+        $timeline = Factory::create(Timeline::class);
 
-    /**
-     * Resetting all tables with content in database
-     * @return void
-     */
-    protected function artisanMigrateReset()
-    {
-        //Artisan::call('migrate:reset');
-        DB::rollback();
+        list($first_name, $last_name) = explode(' ', $timeline->name);
+
+        $user = Factory::create(User::class, [
+            'timeline_id' => $timeline->id,
+            'username' => $timeline->id,
+            'first_name' => $first_name,
+            'last_name' => $last_name
+        ]);
+
+        $user->profile()->save(
+            factory(Profile::class)->make()
+        );
+
+        $user_settings = [
+            'user_id' => $user->id,
+            'confirm_follow' => 'no',
+            'follow_privacy' => 'everyone',
+            'comment_privacy' => 'everyone',
+            'timeline_post_privacy' => 'only_follow',
+            'post_privacy' => 'everyone',];
+
+        DB::table('user_settings')->insert($user_settings);
+
+        $user->roles()->attach(1);
+
+        return $user;
     }
 }
